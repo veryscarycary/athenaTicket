@@ -1,14 +1,16 @@
 const router = require('../config/middleware.js').router();
 const api = require('./controller.js');
 
-router.get('/api/:user/stub', api.getStub);
-// router.get('/api/search', api.getSearch);
+// router.get('/api/:id/stub', api.getStubs); //return stubs. this will be how the kb search service updates
 
-// router.route('/api/user/:username/:password')
-//   .get(api.checkAuth)
-//   .post(api.createUser)
-//   .put(api.editUser)
-//   .delete(api.deleteUser);
+router.route('/api')
+  .get(api.getTicket)
+  .post(api.createTicket);
+
+router.route('/api/:id')
+  .get(api.getTicket)
+  .put(api.editTicket)
+  .delete(api.deleteTicket);
 
 router.get('/', api.pingDb)
 
