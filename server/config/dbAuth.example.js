@@ -6,6 +6,6 @@
 //'dbAuth.js'
 
 module.exports = {
-  DB_USR: 'DB_SUR',
-  DB_PASS: 'DB_PASS'
+  DB_USR: '',
+  DB_PASS: ''
 }
