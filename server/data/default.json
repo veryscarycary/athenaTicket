@@ -1,11 +1,26 @@
 [
   {
-    "title":"Printer broken"
+    "issue":"Printer broken",
+    "customerId":"12",
+    "resolved":"Resolved"
   },
   {
-    "title":"Internet broken"
+    "issue":"Short Circuiting",
+    "customerId":"14",
+    "resolved":"Resolved"
   },
   {
-    "title":"Computer broken"
-  }
-]
+    "issue":"Overheating",
+    "customerId":"9",
+    "resolved":"Resolved"
+  },
+  {
+    "issue":"Blue screen o death",
+    "customerId":"56",
+    "resolved":"Resolved"
+  },
+  {
+    "issue":"Not enough free cookies",
+    "customerId":"34",
+    "resolved":"Resolved"
+  }]
