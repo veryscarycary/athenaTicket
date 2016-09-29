@@ -6,10 +6,11 @@ module.exports = mongoose.model('Ticket', new mongoose.Schema(
     title: {
       type:String,
       unique: true
-    }, 
-    issuePreview: String, 
-    customerId: String,
+    },
+    issuePreview: String,
     issue: String,
+    customerId: String,
+    product: String,
     solution: String,
     relatedArticles: [String],
     relatedProducts: Object, //keys are products, values are versions
