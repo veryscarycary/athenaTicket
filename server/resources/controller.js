@@ -24,9 +24,9 @@ module.exports = {
   },
   createTicket(req, res) {
     new Ticket(req.body)
-      .save((err, data) => err ? 
+      .save((err, data) => (() => { console.log(err, data); return err})() ? 
         res.status(500).send(err)
-        : res.status(201).send(JSON.stringify(data))
+        : res.status(201).send(data)
       );
   },
   editTicket(req, res) {
@@ -35,7 +35,7 @@ module.exports = {
       {new: true},
       (err, data) => err ?
         res.status(404).send(err)
-        : res.status(200).send(JSON.stringify(data))
+        : res.status(200).send(data)
     );
   }, 
   deleteTicket(req, res) {
