@@ -7,6 +7,7 @@ module.exports = mongoose.model('Ticket', new mongoose.Schema(
       type:String,
       unique: true
     },
+    id: String,
     issuePreview: String,
     issue: String,
     customerId: String,
