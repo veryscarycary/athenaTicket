@@ -6,18 +6,20 @@ module.exports = mongoose.model('Ticket', new mongoose.Schema(
     title: {
       type:String,
       unique: true
-    }, 
-    issuePreview: String, 
-    customerId: String,
+    },
+    id: String,
+    issuePreview: String,
     issue: String,
+    customerId: String,
+    product: String,
     solution: String,
     relatedArticles: [String],
     relatedProducts: Object, //keys are products, values are versions
     resolved: Boolean,
     authorId: String,
     dateSubmitted: Date,
-    datesOpened: [[Date, String]], //dates opened, user Id
-    datesResolved: [[Date, String]], //dates resolved, user Id
+    datesOpened: Date, //dates opened, user Id
+    datesResolved: Date, //dates resolved, user Id
     checkedOut: Boolean
   },
   { versionKey: false }
