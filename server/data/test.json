@@ -5,9 +5,9 @@
     "product":"Printer",
     "customerId":"12",
     "relatedArticles": [
-      {"articleId": 1},
-      {"articleId": 3},
-      {"articleId": 2}
+      1,
+      2,
+      3
     ]
   },
   {
@@ -17,22 +17,33 @@
     "customerId":"14",
     "status": "resolved",
     "relatedArticles": [
-      {"articleId": 1},
-      {"articleId": 3},
-      {"articleId": 2}
+      1,
+      4,
+      5,
+      7
     ]
   },
   {
     "title":"Overheating",
     "issue":"Overheating",
     "product":"Computer",
-    "customerId":"9"
+    "customerId":"9",
+    "relatedArticles": [
+      8,
+      4,
+      9,
+      7
+    ]
   },
   {
     "title":"Blue screen o death",
     "issue":"Blue screen o death",
     "product":"Computer",
-    "customerId":"56"
+    "customerId":"56",
+    "relatedArticles": [
+      22,
+      4
+    ]
   },
   {
     "title":"Not enough free cookies",

@@ -25,15 +25,13 @@ module.exports = {
     customerId: STR,
     product: STR,
     solution: TXT,
-    // relatedArticles: [String], do join table
-    // relatedProducts: Object, //keys are products, values are versions
     status: {
       type: ENUM,
       values: ['unresolved', 'checked out', 'resolved'],
       defaultValue: 'unresolved'
     },
     authorId: STR,
-    datesResolved: DATE //dates resolved, user Id
+    datesResolved: DATE 
   }, 
   relatedArticle: {
     id: {
@@ -41,8 +39,6 @@ module.exports = {
       required: true,
       primaryKey:true
     },
-    articleId: {
-      type: INT
-    }
+    articleId: INT
   }
 };

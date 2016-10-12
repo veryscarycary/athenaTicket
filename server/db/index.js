@@ -12,7 +12,8 @@ let sequelize = module.exports.sequelize = new mw.Sequelize(uri, {
 //table definitions
 let Ticket = module.exports.ticket = 
   sequelize.define('ticket', schema.ticket);
-let RelatedArticle = module.exports.relatedArticle = sequelize.define('related_article', schema.relatedArticle);
+let RelatedArticle = module.exports.relatedArticle = 
+  sequelize.define('related_article', schema.relatedArticle);
 Ticket.hasMany(RelatedArticle, {as: 'relatedArticles', onDelete: 'CASCADE', onUpdate: 'CASCADE'});
 //----server initialization----
 //server will overwrite defaults each time its launched
@@ -33,11 +34,11 @@ sequelize.authenticate()
           delete jsonItem.relatedArticles;
         }
         return Ticket.create(jsonItem)
-        .then(data => RelatedArticle.bulkCreate(articles.map(article => {
-          article.ticketId = data.id;
-          article.id = `T${article.ticketId}A${article.articleId}`;
-          return article;
-        }))
+        .then(data => RelatedArticle.bulkCreate(articles.map(articleId => ({
+          ticketId: data.id,
+          articleId: articleId,
+          id: `T${data.id}A${articleId}`
+        })))
       )})).then(loads => console.log(chalk.green(`Load complete. `) + chalk.magenta(`${loads.length} records loaded.`))))
     );
   })
