@@ -1,5 +1,5 @@
 'use strict'
-const Sequelize = require('../config/middleware.js').Sequelize,
+const Sequelize = require('../config/middleware.js').sequelize,
 STR = Sequelize.STRING, //varchar(255)
 BOOL = Sequelize.BOOLEAN, //tinyint(1)
 DATE = Sequelize.DATE, //Timestamp with time zone
