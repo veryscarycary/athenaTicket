@@ -1,0 +1,43 @@
+[
+  {
+    "title":"Printer broken",
+    "issue":"Printer broken",
+    "product":"Printer",
+    "customerId":"12",
+    "relatedArticles": [
+      {"articleId": 1},
+      {"articleId": 3},
+      {"articleId": 2}
+    ]
+  },
+  {
+    "title":"Short Circuiting",
+    "issue":"Short Circuiting",
+    "product":"Computer",
+    "customerId":"14",
+    "status": "resolved",
+    "relatedArticles": [
+      {"articleId": 1},
+      {"articleId": 3},
+      {"articleId": 2}
+    ]
+  },
+  {
+    "title":"Overheating",
+    "issue":"Overheating",
+    "product":"Computer",
+    "customerId":"9"
+  },
+  {
+    "title":"Blue screen o death",
+    "issue":"Blue screen o death",
+    "product":"Computer",
+    "customerId":"56"
+  },
+  {
+    "title":"Not enough free cookies",
+    "issue":"Not enough free cookies",
+    "product":"Humans",
+    "customerId":"34"
+  }
+]
