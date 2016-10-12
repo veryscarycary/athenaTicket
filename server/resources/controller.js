@@ -34,11 +34,11 @@ module.exports = {
     }
     Ticket.create(req.body)
     .then(data => articles ? 
-      RelatedArticle.bulkCreate(articles.map(article => {
-        article.ticketId = data.id;
-        article.id = `T${article.ticketId}A${article.articleId}`;
-        return article;
-      }))
+      RelatedArticle.bulkCreate(articles.map(articleId => ({
+        ticketId: data.id,
+        articleId: articleId,
+        id: `T${data.id}A${articleId}`
+      })))
       .then(() => sendRes(res, data.id))
       : sendRes(res, data.id))
     .catch(err => res.status(500).send(err));
@@ -46,11 +46,11 @@ module.exports = {
   editTicket(req, res) {
     let articles = false;
     if(Array.isArray(req.body.relatedArticles)) {
-      articles = req.body.relatedArticles.map(article => {
-        article.ticketId = req.params.id;
-        article.id = `T${article.ticketId}A${article.articleId}`;
-        return article;
-      });
+      articles = req.body.relatedArticles.map(articleId => ({
+        ticketId: req.params.id,
+        articleId: articleId,
+        id: `T${req.params.id}A${articleId}`
+      }));
       delete req.body.relatedArticles;
     }
     Ticket.update(req.body, {where: {id: req.params.id}})
