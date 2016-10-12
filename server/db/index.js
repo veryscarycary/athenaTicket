@@ -2,44 +2,43 @@
 const mw = require('../config/middleware.js');
 const uri = mw.urls.database;
 const chalk = mw.chalk;
+const schema = require('./schema.js');
+const DEFAULT_DATA = require('../data/test.json');
 
-let db = mw.mongoose.connect(uri, {
-  db: {native_parser: true},
-  server: {
-    poolSize: 5,
-    socketOptions: {
-      keepAlive: 1000,
-      connectTimeoutMS: 30000
-    }
-  }
-}).connection
-  .on('error', err => console.log(err))
-  .on('open', () => {
-    console.log(
-      '  ' + chalk.green.bold(String.fromCharCode(0x27A0)) + ' ' +
-      chalk.cyan('Connected to ' + uri),
-      '\n    ' + chalk.magenta.underline.dim('Loading Default Data...')
+let sequelize = module.exports.sequelize = new mw.Sequelize(uri, {
+  logging: false //set true to see SQL in terminal
+});
+
+//table definitions
+let Ticket = module.exports.ticket = 
+  sequelize.define('ticket', schema.ticket);
+let RelatedArticle = module.exports.relatedArticle = sequelize.define('related_article', schema.relatedArticle);
+Ticket.hasMany(RelatedArticle, {as: 'relatedArticles', onDelete: 'CASCADE', onUpdate: 'CASCADE'});
+//----server initialization----
+//server will overwrite defaults each time its launched
+sequelize.authenticate()
+  .then(() => {
+    let conflicts = 0,
+    creations = 0,
+    errors = 0,
+    done = 0;
+    console.log(chalk.green('Database connected.') + chalk.cyan('\nLoading default data...'));
+    Ticket.sync({force: true})
+    .then(() => 
+      RelatedArticle.sync({force: true})
+      .then(()=> Promise.all(DEFAULT_DATA.map((jsonItem, i, a) => {
+        let articles = [];
+        if(Array.isArray(jsonItem.relatedArticles)) {
+          articles = jsonItem.relatedArticles.slice();
+          delete jsonItem.relatedArticles;
+        }
+        return Ticket.create(jsonItem)
+        .then(data => RelatedArticle.bulkCreate(articles.map(article => {
+          article.ticketId = data.id;
+          article.id = `T${article.ticketId}A${article.articleId}`;
+          return article;
+        }))
+      )})).then(loads => console.log(chalk.green(`Load complete. `) + chalk.magenta(`${loads.length} records loaded.`))))
     );
-    let conflictCount = 0, errMsg = [], doneCount = 0;
-    require('../data/default.json')
-      .forEach((record, index, arr) => new require('../resources/schema.js')(record)
-        .save(err => {
-          if (err) err.message.match(/^E11000/i) ?
-              conflictCount++
-              : errMsg.push(err.message);
-          doneCount++;
-          doneCount == arr.length && console.log(
-            `    ${chalk.cyan.dim('Load Complete.')} ${chalk.yellow.dim(`(${(
-                  conflictCount ?
-                    `${conflictCount} conflicts`
-                    : '')}${
-                   (errMsg.length > 0 ?
-                    `${(conflictCount ? '; ' : '') + errMsg.length} errors: ${errMsg}`
-                    : '')
-                  })`)
-                }\n`
-          );
-      }));
-  });
-
-  module.exports = db;
+  })
+  .catch(err => console.log(chalk.red(err.name + ' ' + err.message)));
