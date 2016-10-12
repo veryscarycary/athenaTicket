@@ -15,7 +15,7 @@ module.exports = {
   },
   getTicket(req, res) {
     let id = req.params.id;
-    Ticket.find(id ? {_id: req.params.id} : {},
+    Ticket.find(id ? {id: req.params.id} : {},
       (err, data) => err ?
         res.status(404).send(err)
         : res.status(200).send(JSON.stringify(data))
