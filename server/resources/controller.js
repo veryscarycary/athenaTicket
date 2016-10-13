@@ -72,7 +72,7 @@ module.exports = {
     RelatedArticle.findAll({
       // include: [{
       //   model: Ticket,
-      //   attributes: ['authorId', 'product', 'customerId']
+      // //   attributes: ['authorId', 'product', 'customerId']
       // }]
     })
     .then(data => res.status(200).send(JSON.stringify(data)))

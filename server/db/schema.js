@@ -1,5 +1,5 @@
 'use strict'
-const Sequelize = require('../config/middleware.js').Sequelize,
+const Sequelize = require('../config/middleware.js').sequelize,
 STR = Sequelize.STRING, //varchar(255)
 BOOL = Sequelize.BOOLEAN, //tinyint(1)
 DATE = Sequelize.DATE, //Timestamp with time zone
@@ -25,8 +25,6 @@ module.exports = {
     customerId: STR,
     product: STR,
     solution: TXT,
-    // relatedArticles: [String], do join table
-    // relatedProducts: Object, //keys are products, values are versions
     status: {
       type: ENUM,
       values: ['unresolved', 'checked out', 'resolved'],
@@ -41,8 +39,6 @@ module.exports = {
       required: true,
       primaryKey:true
     },
-    articleId: {
-      type: INT
-    }
+    articleId: INT
   }
 };
