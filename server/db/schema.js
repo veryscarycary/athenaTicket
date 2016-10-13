@@ -34,7 +34,7 @@ module.exports = {
     },
     authorId: STR,
     datesResolved: DATE //dates resolved, user Id
-  }, 
+  },
   relatedArticle: {
     id: {
       type: STR,

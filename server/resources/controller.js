@@ -77,7 +77,6 @@ module.exports = {
     })
     .then(data => res.status(200).send(JSON.stringify(data)))
     .catch(err => res.status(404).send(err));
->>>>>>> cd3eed7aa066ec2939179ecded3895ee4aaf0e5d
   }
 };
 
