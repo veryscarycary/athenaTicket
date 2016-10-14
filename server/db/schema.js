@@ -31,8 +31,8 @@ module.exports = {
       defaultValue: 'unresolved'
     },
     authorId: STR,
-    datesResolved: DATE 
-  }, 
+    datesResolved: DATE //dates resolved, user Id
+  },
   relatedArticle: {
     id: {
       type: STR,

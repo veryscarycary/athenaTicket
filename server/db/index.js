@@ -3,14 +3,14 @@ const mw = require('../config/middleware.js');
 const uri = mw.urls.database;
 const chalk = mw.chalk;
 const schema = require('./schema.js');
-const DEFAULT_DATA = require('../data/test.json');
+const DEFAULT_DATA = require('../data/default.json');
 
 let sequelize = module.exports.sequelize = new mw.sequelize(uri, {
   logging: false //set true to see SQL in terminal
 });
 
 //table definitions
-let Ticket = module.exports.ticket = 
+let Ticket = module.exports.ticket =
   sequelize.define('ticket', schema.ticket);
 let RelatedArticle = module.exports.relatedArticle = 
   sequelize.define('related_article', schema.relatedArticle);
@@ -25,7 +25,7 @@ sequelize.authenticate()
     done = 0;
     console.log(chalk.green('Database connected.') + chalk.cyan('\nLoading default data...'));
     Ticket.sync({force: true})
-    .then(() => 
+    .then(() =>
       RelatedArticle.sync({force: true})
       .then(()=> Promise.all(DEFAULT_DATA.map((jsonItem, i, a) => {
         let articles = [];

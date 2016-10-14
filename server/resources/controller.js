@@ -19,7 +19,7 @@ module.exports = {
       }]
     };
     if(id)
-      options.where = { 
+      options.where = {
         id: { $any: id.split(',').map(str => +str) }
       };
     Ticket.findAll(options)
@@ -33,7 +33,7 @@ module.exports = {
       delete req.body.relatedArticles;
     }
     Ticket.create(req.body)
-    .then(data => articles ? 
+    .then(data => articles ?
       RelatedArticle.bulkCreate(articles.map(articleId => ({
         ticketId: data.id,
         articleId: articleId,
@@ -54,7 +54,7 @@ module.exports = {
       delete req.body.relatedArticles;
     }
     Ticket.update(req.body, {where: {id: req.params.id}})
-    .then(() => articles ? 
+    .then(() => articles ?
       RelatedArticle.destroy({where: {ticketId: req.params.id}})
       .then(() => RelatedArticle.bulkCreate(articles)
         .then(() => sendRes(res, req.params.id)))
@@ -63,7 +63,7 @@ module.exports = {
   },
   deleteTicket(req, res) {
     Ticket.destroy({where: {id: req.params.id} })
-    .then(deleted => deleted ? 
+    .then(deleted => deleted ?
       res.status(201).send('record deleted')
       : res.status(404).send('no record found'))
     .catch(err => res.status(500).send(err));
@@ -84,7 +84,7 @@ function sendRes(res, id) {
   Ticket.find({
     where: {id: id},
     include: [{
-      model: RelatedArticle, 
+      model: RelatedArticle,
       as: 'relatedArticles'
     }]
   })
